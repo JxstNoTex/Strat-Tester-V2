@@ -1,0 +1,16 @@
+﻿  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_dx11.cpp
+  imgui_impl_win32.cpp
+  imgui_widgets.cpp
+  kiero.cpp
+  main.cpp
+  Generating Code...
+  buffer.c
+  hde32.c
+  hde64.c
+  hook.c
+  trampoline.c
+  Generating Code...
+  ImGui DirectX 11 Kiero Hook.vcxproj -> C:\Users\Tex\source\repos\SR-Practice-Mod\build\x64\Debug\ImGui DirectX 11 Kiero Hook.lib
