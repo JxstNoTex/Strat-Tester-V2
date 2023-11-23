@@ -11,7 +11,14 @@ namespace StratTester
 {
 	Menu::Menu()
 	{
-
+		/*Dev Note:
+		*Sanity Check
+		*check for map name if map is zm_frontend return
+		*/
+		/*Dev Note
+		*Function Add
+		*get perks from gsc callback on entry
+		*/
 	}
 
 	Menu::~Menu()
@@ -116,6 +123,73 @@ namespace StratTester
 
 				}
 
+				ImGui::End();
+				break;
+			case 0x3:
+				ImGui::Begin("Perk Options", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+
+				if (ImGui::Button("Give All Perks", ImVec2(185, 20)))
+				{
+
+				}
+				if (ImGui::Button("Retain Perks", ImVec2(185, 20)))
+				{
+
+				}
+				for (auto perk : m_perks)
+				{
+					if(ImGui::Button(perk, ImVec2(185,20)))
+					{
+
+					}
+				}
+
+				ImGui::End();
+				break;
+			case 0x4:
+				ImGui::Begin("Points", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+
+				if (ImGui::Button("Give +1000", ImVec2(185, 20)))
+				{
+
+				}
+				if (ImGui::Button("Give +5000", ImVec2(185, 20)))
+				{
+
+				}
+				if (ImGui::Button("Give +10000", ImVec2(185, 20)))
+				{
+
+				}
+				if (ImGui::Button("Give +100000", ImVec2(185, 20)))
+				{
+
+				}
+				if (ImGui::Button("Give +1000000", ImVec2(185, 20)))
+				{
+
+				}
+
+				if (ImGui::Button("Give -1000", ImVec2(185, 20)))
+				{
+
+				}
+				if (ImGui::Button("Give -5000", ImVec2(185, 20)))
+				{
+
+				}
+				if (ImGui::Button("Give -10000", ImVec2(185, 20)))
+				{
+
+				}
+				if (ImGui::Button("Give -100000", ImVec2(185, 20)))
+				{
+
+				}
+				if (ImGui::Button("Give -1000000", ImVec2(185, 20)))
+				{
+
+				}
 				ImGui::End();
 				break;
 			default:
