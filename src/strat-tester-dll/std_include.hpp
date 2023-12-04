@@ -1,9 +1,12 @@
 #pragma once
 
-#define BINARY_PAYLOAD_SIZE 0x14000000
+#define WIN32_LEAN_AND_MEAN
 
-// Decide whether to load the game as lib or to inject it
-#define INJECT_HOST_AS_LIB
+#pragma comment(lib, "ws2_32.lib")
+#include <windows.h>
+#include <iostream>
+#include "havok/structs.hpp"
+#include "game/structs.hpp"
 
 #pragma warning(push)
 #pragma warning(disable: 4100)
@@ -35,8 +38,7 @@
 #include <MsHTML.h>
 #include <MsHtmHst.h>
 #include <ExDisp.h>
-#include <WinSock2.h>
-#include <WS2tcpip.h>
+
 #include <corecrt_io.h>
 #include <fcntl.h>
 #include <shellapi.h>
@@ -68,7 +70,6 @@
 #include <chrono>
 #include <thread>
 #include <fstream>
-#include <iostream>
 #include <utility>
 #include <filesystem>
 #include <functional>
@@ -76,11 +77,19 @@
 #include <optional>
 #include <unordered_set>
 #include <variant>
-#include <cassert>
+#include <string>
+
 
 #include <MinHook.h>
+
+#include <rapidjson/document.h>
+#include <rapidjson/prettywriter.h>
+#include <rapidjson/stringbuffer.h>
+
 #include <asmjit/core/jitruntime.h>
 #include <asmjit/x86/x86assembler.h>
+
+
 
 #pragma warning(pop)
 #pragma warning(disable: 4100)
@@ -92,3 +101,17 @@
 #pragma comment(lib, "Crypt32.lib")
 
 using namespace std::literals;
+
+inline uint32_t fnv1a(const char* key) {
+
+	const char* data = key;
+	uint32_t hash = 0x4B9ACE2F;
+	while (*data)
+	{
+		hash ^= tolower(*data);
+		hash *= 0x1000193;
+		data++;
+	}
+	hash *= 0x1000193;
+	return hash;
+}

@@ -94,7 +94,7 @@ namespace StratTester
 
 				if (ImGui::Button("God Mode", ImVec2(185, 20)))
 				{
-
+					
 				}
 				if (ImGui::Button("Unlimited Ammo", ImVec2(185, 20)))
 				{
@@ -136,13 +136,7 @@ namespace StratTester
 				{
 
 				}
-				for (auto perk : m_perks)
-				{
-					if(ImGui::Button(perk, ImVec2(185,20)))
-					{
 
-					}
-				}
 
 				ImGui::End();
 				break;
