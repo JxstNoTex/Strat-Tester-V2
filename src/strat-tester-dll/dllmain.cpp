@@ -92,6 +92,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 		atexit(unload);
 		CreateThread(nullptr, 0, MainThread, hModule, 0, nullptr);
 		
+		
 		break;
 	case DLL_PROCESS_DETACH:
 		kiero::shutdown();

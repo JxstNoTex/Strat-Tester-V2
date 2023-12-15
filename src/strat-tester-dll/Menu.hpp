@@ -10,6 +10,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 
 namespace StratTester
 {
+	void Update(int host, bool open);
 	class Menu
 	{
 	public:
@@ -17,6 +18,7 @@ namespace StratTester
 		~Menu();
 
 		void draw();
+		
 	private:
 		std::vector<std::string> m_perks;
 

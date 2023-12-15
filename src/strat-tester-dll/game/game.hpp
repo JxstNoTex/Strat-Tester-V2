@@ -38,4 +38,6 @@ namespace game
 		T* object_;
 	};
 }
+
+size_t operator"" _g(size_t val);
 #include "symbols.hpp"

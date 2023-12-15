@@ -43,6 +43,11 @@ namespace game
 	WEAK symbol<ScrString_t(const char* s)> GScr_AllocString{ OFFSET(0x141A83520) }; //updated
 	WEAK symbol<int(scriptInstance_t inst, unsigned int index)> Scr_GetInt{ OFFSET(0x1412EB7F0) }; //updated
 	WEAK symbol<const char* (scriptInstance_t inst, unsigned int index)> Scr_GetString{ OFFSET(0x1412EBAA0) }; //updated
+	WEAK symbol<int(int scriptInst, int var)> ScrVm_AddInt{ OFFSET(0x1412E9870) }; //7FF6439E0000 / 1404478E0
+	WEAK symbol<void(int scriptInst,  char* str)> ScrVm_AddString{ OFFSET(0x1412E9A30) };
+	//WEAK symbol<float(int scriptInst, float var)> ScrVm_AddFloat{ 0x1412E9760_g };
+
+
 	// Variables
 	WEAK symbol<BuiltinFunctionDef> isProfileBuildFunctionDef{ OFFSET(0x1432D7D70) }; //updated
 

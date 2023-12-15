@@ -42,3 +42,10 @@ namespace game
 		}
 	}
 }
+
+size_t operator"" _g(const size_t val)
+{
+	static auto base = size_t(utils::nt::library{}.get_ptr());
+	assert(base && "Failed to resolve base");
+	return base + (val - 0x140000000);
+}

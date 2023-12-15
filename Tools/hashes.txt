@@ -4,7 +4,7 @@
 0xC35E6AAB, init
 0xFB4F96B5, on_player_connect
 0xAEBCF025, on_player_spawned
-0x4AD81293, detour_a1c73ac3-2db1-4176-87cd-f9a4a361efe2
+0x79CD4D67, detour_650fc2f3-300b-4ad1-9d80-9a2025715fba
 0x4100E7E1, zm_magicbox
 0xF4E72416, treasure_chest_chooseweightedrandomweapon
 0xEFC09F42, detour
@@ -20,7 +20,6 @@
 0x428A889F, endon
 0x1970A3B3, self
 0xBE6B87F9, true
-0x2E4B8C78, iprintlnbold
 0x5DC5E20A, player
 0xC957F6B6, i
 0x10F9C82C, pap_triggers

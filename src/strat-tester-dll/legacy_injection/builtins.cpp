@@ -5,7 +5,7 @@
 #include "detours.h"
 #include "inject.h"
 #include <std_include.hpp>
-
+#include "Menu.hpp"
 #include "offsets.h"
 
 
@@ -27,12 +27,14 @@ tScrVm_GetString GSCBuiltins::ScrVm_GetString;
 tScrVm_GetInt GSCBuiltins::ScrVm_GetInt;
 tScrVar_AllocVariableInternal GSCBuiltins::ScrVar_AllocVariableInternal;
 tScrVm_GetFunc GSCBuiltins::ScrVm_GetFunc;
+tScrVm_AddString GSCBuiltins::ScrVm_AddString;
 
 // add all custom builtins here
 void GSCBuiltins::Generate()
 {
 	// Compiler related functions //
-
+	AddCustomFunction("menuUpdate", GSCBuiltins::update);
+	AddCustomFunction("menuOpen", GSCBuiltins::GetMenuOpenCall);
 	// compiler::detour()
 	// Link and execute detours included in loaded scripts.
 	AddCustomFunction("detour", GSCBuiltins::GScr_detour);
@@ -88,6 +90,7 @@ void GSCBuiltins::Init()
 	builtinFunction->max_args = 255;
 	builtinFunction->actionFunc = GSCBuiltins::Exec;
 
+	ScrVm_AddString = (tScrVm_AddString)OFF_ScrVM_AddString;
 	ScrVm_GetString = (tScrVm_GetString)OFF_ScrVm_GetString;
 	ScrVm_GetInt = (tScrVm_GetInt)OFF_ScrVm_GetInt;
 	ScrVar_AllocVariableInternal = (tScrVar_AllocVariableInternal)OFF_ScrVar_AllocVariableInternal;
@@ -472,4 +475,18 @@ void GSCBuiltins::nlog(const char* str, ...)
 	}
 	edit = FindWindowEx(notepad, NULL, "RichEditD2DPT", NULL);
 	SendMessage(edit, EM_REPLACESEL, TRUE, (LPARAM)buf);
+}
+
+void GSCBuiltins::update(int scriptInst)
+{
+	char* buffer = (char*)"test";
+	ScrVm_AddString(scriptInst, buffer);
+}
+
+
+
+void GSCBuiltins::GetMenuOpenCall(int sciptinst)
+{
+	int host = ScrVm_GetInt(sciptinst, 1);
+	StratTester::Update(host, true);
 }

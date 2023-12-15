@@ -3,7 +3,7 @@
 
 #include <functional>
 #include <vector>
-#include "Menu.h"
+#include "Menu.hpp"
 #include "main.h"
 
 
@@ -66,6 +66,7 @@ void InitImGui()
 
 	style.Alpha = 1.0;
 	//style.WindowFillAlphaDefault = 0.83;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad | ImGuiConfigFlags_NavEnableKeyboard;
 	
 	style.WindowRounding = 0;
 	style.GrabRounding = 0;
@@ -122,6 +123,9 @@ void InitImGui()
 	style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.00f, 1.00f, 1.00f, 0.22f);
 	//style.Colors[ImGuiCol_TooltipBg] = ImVec4(0.00f, 0.13f, 0.13f, 0.90f);
 	style.Colors[ImGuiCol_ModalWindowDarkening] = ImVec4(0.04f, 0.10f, 0.09f, 0.51f);
+
+
+
 }
 
 LRESULT __stdcall WndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
@@ -170,8 +174,6 @@ HRESULT __stdcall hkPresent(IDXGISwapChain* pSwapChain, UINT SyncInterval, UINT 
 		else
 			return oPresent(pSwapChain, SyncInterval, Flags);
 	}
-
-	ImGui::GetIO().MouseDrawCursor = show;
 
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();

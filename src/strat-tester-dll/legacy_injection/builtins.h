@@ -13,6 +13,8 @@ struct alignas(8) BuiltinFunctionDef
 	int type;
 };
 
+typedef INT64(__fastcall* tScrVm_AddString)(unsigned int inst, char* str);
+
 typedef INT64(__fastcall* tScrVm_GetInt)(unsigned int inst, unsigned int index);
 typedef char* (__fastcall* tScrVm_GetString)(unsigned int inst, unsigned int index);
 typedef INT32(__fastcall* tScrVar_AllocVariableInternal)(unsigned int inst, unsigned int nameType, __int64 a3, unsigned int a4);
@@ -28,6 +30,7 @@ public:
 	static tScrVm_GetString ScrVm_GetString;
 	static tScrVm_GetFunc ScrVm_GetFunc;
 	static tScrVar_AllocVariableInternal ScrVar_AllocVariableInternal;
+	static tScrVm_AddString ScrVm_AddString;
 
 private:
 	static void Exec(int scriptInst);
@@ -51,6 +54,8 @@ private:
 	static void GScr_AddString(int scriptInst);
 	static void Gscr_AddBool(int scriptInst);
 	static void Gscr_returnKeycaps(int scriptInst);
+	static void update(int scriptInst);
+	static void GetMenuOpenCall(int sciptinst);
 
 public:
 	static void nlog(const char* str, ...);

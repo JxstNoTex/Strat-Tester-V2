@@ -4,9 +4,11 @@
 
 // dont mess with these because when I add new games, these macros will change
 
-#define OFFSET(x) (*(__int64*)((char*)(NtCurrentTeb()->ProcessEnvironmentBlock) + 0x10) + (__int64)(x))
+//#define OFFSET(x) (*(__int64*)((char*)(NtCurrentTeb()->ProcessEnvironmentBlock) + 0x10) + (__int64)(x))
 #define REBASE(x) (*(__int64*)((char*)(NtCurrentTeb()->ProcessEnvironmentBlock) + 0x10) + (__int64)(x))
+#define OFFSET(address) (uintptr_t)((address - 0x140000000) + (uintptr_t)GetModuleHandle(NULL))
 
+#define OFF_ScrVM_AddString OFFSET(0x1412E9A30)
 #define OFF_IsProfileBuild REBASE(0x32D7D70)
 #define OFF_ScrVm_GetInt REBASE(0x12EB7F0)
 #define OFF_ScrVm_GetString REBASE(0x12EBAA0)

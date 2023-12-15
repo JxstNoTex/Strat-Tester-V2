@@ -12,7 +12,7 @@ on_player_spawned()
 
     while(true)
     {
-        iPrintLnBold("Injected");
+        //iPrintLnBold("Injected");
         wait 1;
     }
 
