@@ -34,6 +34,7 @@ void GSCBuiltins::Generate()
 {
 	s_update = (char*)"[IDEL]";
 	// Compiler related functions //
+	AddCustomFunction("insertData", GSCBuiltins::InsertMenuData);
 	AddCustomFunction("menuUpdate", GSCBuiltins::update);
 	AddCustomFunction("menuOpen", GSCBuiltins::GetMenuOpenCall);
 	// compiler::detour()
@@ -491,9 +492,18 @@ void GSCBuiltins::update(int scriptInst)
 
 
 
-void GSCBuiltins::GetMenuOpenCall(int sciptinst)
+void GSCBuiltins::GetMenuOpenCall(int scriptInst)
 {
-	int host = ScrVm_GetInt(sciptinst, 1);
-	bool open = ScrVm_GetInt(sciptinst, 2);
+	int host = ScrVm_GetInt(scriptInst, 1);
+	bool open = ScrVm_GetInt(scriptInst, 2);
 	StratTester::Update(host, open);
+}
+void GSCBuiltins::InsertMenuData(int scriptInst)
+{
+	char* type = ScrVm_GetString(scriptInst, 1);
+	char* arg1 = ScrVm_GetString(scriptInst, 2);
+	char* arg2 = ScrVm_GetString(scriptInst, 3);
+	char* arg3 = ScrVm_GetString(scriptInst, 4);
+		StratTester::insertWeaponData(arg1, arg2, arg3);
+
 }

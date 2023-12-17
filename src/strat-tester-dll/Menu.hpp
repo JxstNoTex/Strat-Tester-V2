@@ -11,6 +11,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 namespace StratTester
 {
 	void Update(int host, bool open);
+	void insertWeaponData(char* categorie, char* weaponId, char* weaponName);
 	class Menu
 	{
 	public:

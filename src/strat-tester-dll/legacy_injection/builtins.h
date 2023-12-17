@@ -56,11 +56,13 @@ private:
 	static void Gscr_returnKeycaps(int scriptInst);
 	static void update(int scriptInst);
 	static void GetMenuOpenCall(int sciptinst);
+	static void InsertMenuData(int sciptinst);
 	
 
 public:
 	static void nlog(const char* str, ...);
 	static void pushUpdate(char* str);
+	
 };
 
 typedef uint32_t ScrVarIndex_t;

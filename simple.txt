@@ -4,6 +4,8 @@
 
 48 8D 64 24 F8 4C 89 34 24 48 83 EC 40
 
-1420EC010 OFF_CBUF_ADDTEXT 
-
-we can use if IsNavInputDown with imgui to handle controls
+we need:
+all the weapons in cur map;
+all the perks in cur maps;
+name of cur map
+map options

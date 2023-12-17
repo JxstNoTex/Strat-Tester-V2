@@ -144,13 +144,11 @@ std::map<std::string, int> parseFile(const std::string& filename) {
 int main()
 {
 	std::map<std::string, int> keybinds;
-	const char* h = "menuUpdate";
-	const char* h1 = "menuDown";
-	const char* h2 = "menuUp";
+	const char* h = "insertData";
+
 	//keybinds = parseFile("C:\\Users\\Tex\\source\\repos\\Strat-Tester-V2\\build\\x64\\Debug\\bindings_0.cfg");
-    std::cout << h << std::hex << fnv1a(h) << std::endl;
-	std::cout << std::hex << fnv1a(h1) << std::endl;
-	std::cout << std::hex << fnv1a(h2) << std::endl;
+    std::cout << h << " " << std::hex << fnv1a(h) << std::endl;
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
