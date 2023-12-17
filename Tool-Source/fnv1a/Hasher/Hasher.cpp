@@ -144,7 +144,7 @@ std::map<std::string, int> parseFile(const std::string& filename) {
 int main()
 {
 	std::map<std::string, int> keybinds;
-	const char* h = "menuOpen";
+	const char* h = "menuUpdate";
 	const char* h1 = "menuDown";
 	const char* h2 = "menuUp";
 	//keybinds = parseFile("C:\\Users\\Tex\\source\\repos\\Strat-Tester-V2\\build\\x64\\Debug\\bindings_0.cfg");

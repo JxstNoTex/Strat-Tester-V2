@@ -145,7 +145,8 @@ std::vector<std::string> split(std::string s, std::string delimiter) {
     {"W",0x57},
     {"X",0x58},
     {"Y",0x59},
-    {"Z",0x5A}
+    {"Z",0x5A},
+	{"ESCAPE",0x1B}
     };
     return vkMap;
 }
@@ -213,6 +214,7 @@ namespace StratTester
 	void Update(int host, bool open)
 	{
 		_openMenu = open;
+		
 	}
 	
 	std::map<std::string, int> keybinds;
@@ -233,8 +235,8 @@ namespace StratTester
 		* Weapons Menu = .submenu = 1
 		* upgraded weapons = .submenu = 2
 		* 
-		* Note:
-		* this is for navigation since we will handle back calls with a simple submenu--;
+		*
+		*
 		*/
 
 		
@@ -249,14 +251,11 @@ namespace StratTester
 	{
 
 
-	#define Switchmenu(x) s_page.previouss = s_page.index; s_page.index = x; 
+	#define Switchmenu(x) s_page.previouss = s_page.index; s_page.index = x;
+	#define Call(x) GSCBuiltins::pushUpdate((char*)x);
 		if (GetAsyncKeyState(0x38/* key 8*/) & 0x8000)
 		{
 			_openMenu = 1;
-		}
-		if (GetAsyncKeyState(0x39/* key 9*/) & 0x8000)
-		{
-			_openMenu = 0;
 		}
 
 		
@@ -270,12 +269,17 @@ namespace StratTester
 
 			ImGuiIO& io = ImGui::GetIO();
 			io.KeyMap[ImGuiKey_Space] = keybinds["\"+activate\""];
-			io.KeyMap[ImGuiNavInput_Cancel] = keybinds["\"+melee\""];
 			
-
-			if (ImGui::IsKeyDown(ImGuiNavInput_Cancel))
+			if (GetAsyncKeyState(keybinds["\"togglemenu\""]) & 0x8000)
+			{
+				_openMenu = 0;
+			}
+			if (GetAsyncKeyState(keybinds["\"+melee\""]) & 0x8000)
+			{
 				s_page.index = s_page.previouss;
-			
+			}
+			 
+
 			switch (s_page.index)
 			{
 			case 0x0:
@@ -292,19 +296,19 @@ namespace StratTester
 				}
 				if (ImGui::Button("Perk Options", ImVec2(185, 20)))
 				{
-					//Switchmenu(0x3)
+					Switchmenu(0x3)
 				}
 				if (ImGui::Button("Points", ImVec2(185, 20)))
 				{
-					page = 0x4;
+					Switchmenu(0x4)
 				}
 				if (ImGui::Button("Round Options", ImVec2(185, 20)))
 				{
-					page = 0x5;
+					Switchmenu(0x5)
 				}
 				if (ImGui::Button("Drop Options", ImVec2(185, 20)))
 				{
-					page = 0x6;
+					Switchmenu(0x6)
 				}
 				/*Dev Note:
 				* Function Add
@@ -312,15 +316,15 @@ namespace StratTester
 				*/
 				if (ImGui::Button("Map Options", ImVec2(185, 20))) 
 				{
-					page = 0x7;
+					Switchmenu(0x7)
 				}
 				if (ImGui::Button("Presets *WIP*", ImVec2(185, 20)))
 				{
-					page = 0x8;
+					Switchmenu(0x8)
 				}
 				if (ImGui::Button("Debug Options", ImVec2(185, 20)))
 				{
-					page = 0x9;
+					Switchmenu(0x9)
 				}
 
 				ImGui::End();
@@ -330,15 +334,15 @@ namespace StratTester
 				ImGui::SetWindowFocus();
 				if (ImGui::Button("God Mode", ImVec2(185, 20)))
 				{
-					
+					Call("[Basic]->[GodMode]")
 				}
 				if (ImGui::Button("Unlimited Ammo", ImVec2(185, 20)))
 				{
-
+					Call("[Basic]->[uAmmo]")
 				}
 				if (ImGui::Button("No Target", ImVec2(185, 20)))
 				{
-
+					Call("[Basic]->[NoTarget]")
 				}
 
 				ImGui::End();

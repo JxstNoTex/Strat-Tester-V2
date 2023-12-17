@@ -32,6 +32,7 @@ tScrVm_AddString GSCBuiltins::ScrVm_AddString;
 // add all custom builtins here
 void GSCBuiltins::Generate()
 {
+	s_update = (char*)"[IDEL]";
 	// Compiler related functions //
 	AddCustomFunction("menuUpdate", GSCBuiltins::update);
 	AddCustomFunction("menuOpen", GSCBuiltins::GetMenuOpenCall);
@@ -477,10 +478,15 @@ void GSCBuiltins::nlog(const char* str, ...)
 	SendMessage(edit, EM_REPLACESEL, TRUE, (LPARAM)buf);
 }
 
+void GSCBuiltins::pushUpdate(char* str)
+{
+	s_update = str;
+}
+
 void GSCBuiltins::update(int scriptInst)
 {
-	char* buffer = (char*)"test";
-	ScrVm_AddString(scriptInst, buffer);
+	ScrVm_AddString(scriptInst, s_update);
+	s_update = (char*)"[IDEL]";
 }
 
 
@@ -488,5 +494,6 @@ void GSCBuiltins::update(int scriptInst)
 void GSCBuiltins::GetMenuOpenCall(int sciptinst)
 {
 	int host = ScrVm_GetInt(sciptinst, 1);
-	StratTester::Update(host, true);
+	bool open = ScrVm_GetInt(sciptinst, 2);
+	StratTester::Update(host, open);
 }
