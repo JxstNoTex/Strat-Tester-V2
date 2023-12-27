@@ -14,6 +14,25 @@
 
 namespace game
 {
+	namespace
+	{
+		const utils::nt::library& get_host_library()
+		{
+			static const auto host_library = []
+				{
+					utils::nt::library host{};
+					if (!host || host == utils::nt::library::get_by_address(get_base))
+					{
+						throw std::runtime_error("Invalid host application");
+					}
+
+					return host;
+				}();
+
+				return host_library;
+		}
+	}
+
 	uintptr_t base = (uintptr_t)GetModuleHandle(NULL);
 	MinLog minlog = MinLog();
 	std::unordered_map<game::dvarStrHash_t, std::string> dvarHashMap_s;
@@ -40,6 +59,19 @@ namespace game
 
 			dvarHashMap_s.emplace(std::make_pair(hashValue, debugName));
 		}
+	}
+
+	size_t get_base()
+	{
+		static const auto base = reinterpret_cast<size_t>(get_host_library().get_ptr());
+		return base;
+	}
+
+	void show_error(const std::string& text, const std::string& title)
+	{
+
+		MessageBoxA(nullptr, text.data(), title.data(), MB_ICONERROR | MB_SETFOREGROUND | MB_TOPMOST);
+
 	}
 }
 

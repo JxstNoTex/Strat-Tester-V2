@@ -271,7 +271,7 @@ namespace game
 		LOCAL_CLIENT_COUNT = 0x4,
 	};
 
-	enum class scriptInstance_t : int
+	enum scriptInstance_t : int
 	{
 		SCRIPTINSTANCE_SERVER = 0x0,
 		SCRIPTINSTANCE_CLIENT = 0x1,
@@ -2026,4 +2026,15 @@ namespace game
 	{
 		cpose_t pose;
 	};
+
+	
+
+	struct SPT_Header
+	{
+		uint64_t name{};
+		int size{};
+		int pad{};
+		char* buffer{};
+	};
+
 }

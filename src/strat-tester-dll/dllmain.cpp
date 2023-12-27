@@ -16,7 +16,7 @@ int init()
 {
 	//create object reference for injector
 
-	inject.injectT7();
+	//inject.injectT7();
 
 
 	return 1;
@@ -86,8 +86,8 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 
 		init();
 		GSCBuiltins::Init();
-		ScriptDetours::InstallHooks();
-		Opcodes::Init();
+		//ScriptDetours::InstallHooks();
+		//Opcodes::Init();
 		DisableThreadLibraryCalls(hModule);
 		atexit(unload);
 		CreateThread(nullptr, 0, MainThread, hModule, 0, nullptr);

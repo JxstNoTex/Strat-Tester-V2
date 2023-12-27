@@ -9,3 +9,58 @@ all the weapons in cur map;
 all the perks in cur maps;
 name of cur map
 map options
+
+json to gsc:
+
+filename = object name;
+{
+	"name": "ExamplePreset",
+	"MapName": "zm_zod",
+	"PlayerAmount": 1,	//0-3
+	"PlayerData": [
+		{
+			"Perks": [ "Perk1", Perk2, ...],
+			"weapons": [ "weaponid_1", "weaponid_2", "weaponid_3" ],
+			"SpeacialWeapon": "weapoinID",
+			"points": 100,
+			"GobbleGum": "regin_drops",
+			"location": [x,y,z]
+		},
+		{
+			"Perks": [ "Perk1", Perk2, ...],
+			"weapons": [ "weaponid_1", "weaponid_2", "weaponid_3" ],
+			"SpeacialWeapon": "weapoinID",
+			"points": 100,
+			"GobbleGum": "regin_drops",
+			"location": [x,y,z]
+		},
+	],
+	"MapData": [
+		{
+			"Power": "on", // on || off
+			"PackAPunch": "open", // open || close | if power is off this line is skipped
+			"BoxLocation": "zone_something",
+			"Shield_location": "craftingTable_id",
+			"DoorOpen": [ "target1", "target2", ...]
+		}
+	]
+}
+
+level.preset = [];
+level.preset = spawnstruct;
+level.preset["object_name"];
+level.preset["object_name"]["playerData"];
+level.preset["object_name"]["playerData"]["player"];
+level.preset["object_name"]["playerData"]["player"].Perks;
+level.preset["object_name"]["playerData"]["player"].weapons;
+level.preset["object_name"]["playerData"]["player"].SpeacialWeapon;
+level.preset["object_name"]["playerData"]["player"].points;
+level.preset["object_name"]["playerData"]["player"].GobbleGum;
+level.preset["object_name"]["playerData"]["player"].location;
+
+level.preset["object_name"]["mapData"];
+level.preset["object_name"]["mapData"].power;
+level.preset["object_name"]["mapData"].PackAPunch;
+level.preset["object_name"]["mapData"].BoxLocation;
+level.preset["object_name"]["mapData"].Shield_location;
+level.preset["object_name"]["mapData"].DoorOpen;

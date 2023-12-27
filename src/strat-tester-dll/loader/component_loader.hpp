@@ -48,7 +48,8 @@ public:
 	static bool pre_destroy();
 	static bool start_hooks();
 	static bool destroy_hooks();
-
+	static bool premature_hooks();
+	static bool db_destroy_hooks2();
 	static void trigger_premature_shutdown();
 	
 private:

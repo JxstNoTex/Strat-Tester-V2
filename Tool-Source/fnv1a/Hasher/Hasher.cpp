@@ -144,7 +144,7 @@ std::map<std::string, int> parseFile(const std::string& filename) {
 int main()
 {
 	std::map<std::string, int> keybinds;
-	const char* h = "insertData";
+	const char* h = "readfile";
 
 	//keybinds = parseFile("C:\\Users\\Tex\\source\\repos\\Strat-Tester-V2\\build\\x64\\Debug\\bindings_0.cfg");
     std::cout << h << " " << std::hex << fnv1a(h) << std::endl;

@@ -76,7 +76,7 @@ bool injector::injectT7()
                 {
                     std::cout << "found it" << std::endl;
                     //GSCBuiltins::nlog("found it");
-
+                    /*
                     std::cout << "---------------------------------------------------" << std::endl;
                     std::cout << "buffersize: " << t7spt.Buffersize << std::endl;
                     std::cout << "Pad: " << t7spt.Pad << std::endl;
@@ -84,7 +84,7 @@ bool injector::injectT7()
                     std::cout << "lpbuffer" << t7spt.lpBuffer << std::endl;
                     std::cout << "loaded Script number: " << i << std::endl;
                     std::cout << "String Name: " << strBuff << std::endl;
-
+                    */
                     
                     
                     unsigned long long llpOriginalBuffer;
@@ -93,10 +93,10 @@ bool injector::injectT7()
                     llpModifiedSPTStruct = i * sizeof(T7SPT) + sptGlobal;
                     llpOriginalBuffer = t7spt.lpBuffer;
                     ReadProcessMemory(pHandle, (LPCVOID)(llpOriginalBuffer + 0x8), &OriginalSourceChecksum, sizeof(OriginalSourceChecksum), 0);
-                    std::cout << "---------------------------------------------------" << std::endl;
+                    /*std::cout << "---------------------------------------------------" << std::endl;
                     std::cout << "llpModifiedSPTStruct: " << llpModifiedSPTStruct << std::endl;
                     std::cout << "llpOriginalBuffer: " << llpOriginalBuffer << std::endl;
-                    std::cout << "OriginalSourceChecksum: " << OriginalSourceChecksum << std::endl;
+                    std::cout << "OriginalSourceChecksum: " << OriginalSourceChecksum << std::endl;*/
 
                     t7spt.lpBuffer = (long long)malloc(HSize_GSCC);
                     WriteProcessMemory(pHandle, (LPVOID)(t7spt.lpBuffer), (LPVOID)pointer, HSize_GSCC, 0);
@@ -108,7 +108,7 @@ bool injector::injectT7()
 
 
                     long long buf = t7spt.lpBuffer;
-                    printf("buffer to register = %x", buf);
+                    //printf("buffer to register = %x", buf);
                     RegisterDetours(pointer1, 1, t7spt.lpBuffer);
                     return injectResponse;
                 }

@@ -26,4 +26,12 @@ public:
 	virtual void destroy_hooks()
 	{
 	}
+
+	virtual void premature_hooks()
+	{
+	}
+
+	virtual void db_destroy_hooks2()
+	{
+	}
 };

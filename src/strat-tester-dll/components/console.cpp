@@ -5,6 +5,7 @@
 #include "havok/lua_api.hpp"
 
 #include "utils/string.hpp"
+#include <utils/concurrency.hpp>
 #include <utils/io.hpp>
 
 namespace console
@@ -188,6 +189,19 @@ namespace console
 		return true;
 	}
 
+	void print_stub(const char* fmt, ...)
+	{
+		va_list ap;
+		va_start(ap, fmt);
+
+		char buffer[1024]{ 0 };
+		const int res = vsnprintf_s(buffer, sizeof(buffer), _TRUNCATE, fmt, ap);
+		(void)res;
+		print(buffer);
+
+		va_end(ap);
+	}
+
 	class component final : public component_interface
 	{
 	public:
@@ -207,7 +221,10 @@ namespace console
 
 		void start_hooks() override
 		{
-			
+			utils::hook::jump(0x141344E44_g, 0x141344E2E_g); // Remove the need to type '\' or '/' to send a console command
+			utils::hook::jump(printf, print_stub);
+			utils::hook::nop(0x142332C4A_g, 2); // Print from every thread
+
 			utils::hook::nop(REBASE(0x1420EE710), 6);	// Cmd_List_f, remove i->unknown //? updated
 			utils::hook::nop(REBASE(0x1420ED631), 10);	// Cmd_ExecuteSingleCommandInternal, remove next->unknown //? updated
 			utils::hook::nop(REBASE(0x1420ED6F0), 6);	// Cmd_ForEach, remove i->unknown //? updated

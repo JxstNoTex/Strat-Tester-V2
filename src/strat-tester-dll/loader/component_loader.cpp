@@ -85,6 +85,7 @@ void component_loader::initialize_hook_cycle()
 
 bool component_loader::post_start()
 {
+	
 	lua_start();
 
 	static auto handled = false;
@@ -102,7 +103,7 @@ bool component_loader::post_start()
 	{
 		return false;
 	}
-
+	premature_hooks();
 	return true;
 }
 
@@ -127,6 +128,7 @@ bool component_loader::lua_start()
 
 bool component_loader::pre_destroy()
 {
+	
 	static auto handled = false;
 	if (handled) return true;
 	handled = true;
@@ -143,6 +145,7 @@ bool component_loader::pre_destroy()
 		return false;
 	}
 
+	db_destroy_hooks2();
 	return true;
 }
 
@@ -157,6 +160,48 @@ bool component_loader::start_hooks()
 		for (const auto& component_ : get_components())
 		{
 			component_->start_hooks();
+		}
+	}
+	catch (premature_shutdown_trigger&)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool component_loader::premature_hooks()
+{
+	static auto handled = false;
+	if (handled) return true;
+	handled = true;
+
+	try
+	{
+		for (const auto& component_ : get_components())
+		{
+			component_->premature_hooks();
+		}
+	}
+	catch (premature_shutdown_trigger&)
+	{
+		return false;
+	}
+
+	return true;
+}	
+
+bool component_loader::db_destroy_hooks2()
+{
+	static auto handled = false;
+	if (handled) return true;
+	handled = true;
+
+	try
+	{
+		for (const auto& component_ : get_components())
+		{
+			component_->db_destroy_hooks2();
 		}
 	}
 	catch (premature_shutdown_trigger&)

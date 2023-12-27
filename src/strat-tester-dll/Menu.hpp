@@ -12,6 +12,7 @@ namespace StratTester
 {
 	void Update(int host, bool open);
 	void insertWeaponData(char* categorie, char* weaponId, char* weaponName);
+	void insertPerkData(char* perkId, char* perkName);
 	class Menu
 	{
 	public:

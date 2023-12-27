@@ -8,8 +8,6 @@
 
 bool _openMenu = 0;
 
-
-
 std::vector<std::string> split(std::string s, std::string delimiter) {
 	size_t pos_start = 0, pos_end, delim_len = delimiter.length();
 	std::string token;
@@ -131,7 +129,13 @@ namespace StratTester
 		std::string weaponId;
 		std::string weaponName;
 	};
+	struct perkData
+	{
+		std::string perkId;
+		std::string perkName;
+	};
 	std::vector<weaponData> weaponDataList;
+	std::vector<perkData> perkDataList;
 	void Update(int host, bool open)
 	{
 		_openMenu = open;
@@ -153,7 +157,21 @@ namespace StratTester
 		}
 		weaponDataList.push_back({ categorie, weaponId, weaponName });
 	}
-
+	
+	void insertPerkData(char* perkId, char* perkName)
+	{
+		if (perkDataList.size() > 0)
+		{
+			for (int i = 0; i < perkDataList.size(); i++)
+			{
+				if (perkDataList[i].perkId.c_str() == perkId)
+				{
+					return;
+				}
+			}
+		}
+		perkDataList.push_back({ perkId, perkName });
+	}
 	std::map<std::string, int> keybinds;
 	std::once_flag f1;
 	Menu::Menu()
@@ -200,7 +218,12 @@ namespace StratTester
 			if (GetAsyncKeyState(keybinds["\"+melee\""]) < 0)
 			{
 				if (v_page.back() != 0x0)
+				{
+					
+					Call("[Abort]");
 					v_page.pop_back();
+					Sleep(200);
+				}
 				
 			}
 			 
@@ -222,6 +245,7 @@ namespace StratTester
 				}
 				if (ImGui::Button("Perk Options", ImVec2(185, 20)))
 				{
+					Call("[Perk]");
 					Switchmenu(3)
 				}
 				if (ImGui::Button("Points", ImVec2(185, 20)))
@@ -301,6 +325,19 @@ namespace StratTester
 				if (ImGui::Button("Retain Perks", ImVec2(185, 20)))
 				{
 
+				}
+				if (ImGui::Button("Remove All Perks", ImVec2(185, 20)))
+				{
+
+				}
+				for (int i = 0; i < perkDataList.size(); i++)
+				{
+					ImGui::PushID(i);
+					if (ImGui::Button(perkDataList[i].perkName.c_str(), ImVec2(185, 20)))
+					{
+						Call(perkDataList[i].perkId.c_str());
+					}
+					ImGui::PopID();
 				}
 
 
@@ -419,10 +456,7 @@ namespace StratTester
 						ImGui::PushID(j);
 						if (ImGui::Button(weaponDataList[j].weaponName.c_str(), ImVec2(185, 20)))
 						{
-							//give weapon
-
-							std::string data = "[Weapon]->[GiveWeapon]->[" + weaponDataList[j].weaponId + "]";
-							Call(data.c_str());
+							Call(weaponDataList[j].weaponId.c_str());
 						}
 						ImGui::PopID();
 					}
@@ -440,10 +474,7 @@ namespace StratTester
 						ImGui::PushID(j);
 						if (ImGui::Button(weaponDataList[j].weaponName.c_str(), ImVec2(185, 20)))
 						{
-							//give weapon
-
-							std::string data = "[Weapon]->[GiveWeapon]->[" + weaponDataList[j].weaponId + "]";
-							Call(data.c_str());
+							Call(weaponDataList[j].weaponId.c_str());
 						}
 						ImGui::PopID();
 					}
@@ -461,10 +492,7 @@ namespace StratTester
 						ImGui::PushID(j);
 						if (ImGui::Button(weaponDataList[j].weaponName.c_str(), ImVec2(185, 20)))
 						{
-							//give weapon
-
-							std::string data = "[Weapon]->[GiveWeapon]->[" + weaponDataList[j].weaponId + "]";
-							Call(data.c_str());
+							Call(weaponDataList[j].weaponId.c_str());
 						}
 						ImGui::PopID();
 					}
@@ -482,10 +510,7 @@ namespace StratTester
 						ImGui::PushID(j);
 						if (ImGui::Button(weaponDataList[j].weaponName.c_str(), ImVec2(185, 20)))
 						{
-							//give weapon
-
-							std::string data = "[Weapon]->[GiveWeapon]->[" + weaponDataList[j].weaponId + "]";
-							Call(data.c_str());
+							Call(weaponDataList[j].weaponId.c_str());
 						}
 						ImGui::PopID();
 					}
@@ -503,10 +528,7 @@ namespace StratTester
 						ImGui::PushID(j);
 						if (ImGui::Button(weaponDataList[j].weaponName.c_str(), ImVec2(185, 20)))
 						{
-							//give weapon
-
-							std::string data = "[Weapon]->[GiveWeapon]->[" + weaponDataList[j].weaponId + "]";
-							Call(data.c_str());
+							Call(weaponDataList[j].weaponId.c_str());
 						}
 						ImGui::PopID();
 					}
@@ -525,18 +547,31 @@ namespace StratTester
 						 if (ImGui::Button(weaponDataList[j].weaponName.c_str(), ImVec2(185, 20)))
 						 {
 							 //give weapon
-
-							 char* raw = (char*)"[Weapon]->[GiveWeapon]->";
-							 strcat(raw, weaponDataList[j].weaponId.c_str());
-							 //copy raw to char*
-							 char* data = new char[strlen(raw) + 1];
-							 strcpy(data, raw);
-							 Call(data);
+							 Call(weaponDataList[j].weaponId.c_str());
 						 }
 						 ImGui::PopID();
 					 }
 				 }
 				 ImGui::End();
+				break;
+			case 0x18:
+				category = 0x18 - 0x11;
+				ImGui::Begin(Categories[category].c_str(), 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+				ImGui::SetWindowFocus();
+				for (int j = 0; j < weaponDataList.size(); j++)
+				{
+					if (weaponDataList[j].categorie == Categories[category])
+					{
+						ImGui::PushID(j);
+						if (ImGui::Button(weaponDataList[j].weaponName.c_str(), ImVec2(185, 20)))
+						{
+							//give weapon
+							Call(weaponDataList[j].weaponId.c_str());
+						}
+						ImGui::PopID();
+					}
+				}
+				ImGui::End();
 				break;
 			default:
 				break;

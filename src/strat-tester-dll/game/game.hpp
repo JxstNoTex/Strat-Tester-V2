@@ -37,6 +37,30 @@ namespace game
 	private:
 		T* object_;
 	};
+	void show_error(const std::string& text, const std::string& title = "Error");
+	size_t get_base();
+
+	inline size_t relocate(const size_t val)
+	{
+		if (!val) return 0;
+
+		const auto base = get_base();
+		return base + (val - 0x140000000);
+	}
+
+	inline size_t derelocate(const size_t val)
+	{
+		if (!val) return 0;
+
+		const auto base = get_base();
+		return (val - base) + 0x140000000;
+	}
+
+	inline size_t derelocate(const void* val)
+	{
+		return derelocate(reinterpret_cast<size_t>(val));
+	}
+
 }
 
 size_t operator"" _g(size_t val);

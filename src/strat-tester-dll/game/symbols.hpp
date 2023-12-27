@@ -45,6 +45,9 @@ namespace game
 	WEAK symbol<const char* (scriptInstance_t inst, unsigned int index)> Scr_GetString{ OFFSET(0x1412EBAA0) }; //updated
 	WEAK symbol<int(int scriptInst, int var)> ScrVm_AddInt{ OFFSET(0x1412E9870) }; //7FF6439E0000 / 1404478E0
 	WEAK symbol<void(int scriptInst,  char* str)> ScrVm_AddString{ OFFSET(0x1412E9A30) };
+	WEAK symbol<INT64(game::XAssetType type, char* name, bool errorifmissing, int waitTime)>DB_FindXAssetHeader{ 0x141420ED0_g };
+	WEAK symbol<INT64(INT32 canonID, INT32* type, INT32* min_args, INT32* max_args)>Scr_GetFunction{ 0x141AF7820_g };
+	WEAK symbol<INT64(INT32 canonID, INT32* type, INT32* min_args, INT32* max_args)>Scr_GetMethod{ 0x141AF79B0_g };
 	//WEAK symbol<float(int scriptInst, float var)> ScrVm_AddFloat{ 0x1412E9760_g };
 
 

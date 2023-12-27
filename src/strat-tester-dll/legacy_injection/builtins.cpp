@@ -34,6 +34,7 @@ void GSCBuiltins::Generate()
 {
 	s_update = (char*)"[IDEL]";
 	// Compiler related functions //
+	AddCustomFunction("readfile", GSCBuiltins::ReadFile);
 	AddCustomFunction("insertData", GSCBuiltins::InsertMenuData);
 	AddCustomFunction("menuUpdate", GSCBuiltins::update);
 	AddCustomFunction("menuOpen", GSCBuiltins::GetMenuOpenCall);
@@ -475,7 +476,7 @@ void GSCBuiltins::nlog(const char* str, ...)
 	{
 		notepad = FindWindow(NULL, "*Untitled - Notepad");
 	}
-	edit = FindWindowEx(notepad, NULL, "RichEditD2DPT", NULL);
+	edit = FindWindowEx(notepad, NULL, "EDIT", NULL);
 	SendMessage(edit, EM_REPLACESEL, TRUE, (LPARAM)buf);
 }
 
@@ -504,6 +505,19 @@ void GSCBuiltins::InsertMenuData(int scriptInst)
 	char* arg1 = ScrVm_GetString(scriptInst, 2);
 	char* arg2 = ScrVm_GetString(scriptInst, 3);
 	char* arg3 = ScrVm_GetString(scriptInst, 4);
+	//if (type == "[weapon]")
 		StratTester::insertWeaponData(arg1, arg2, arg3);
+	//else if (type == "[perk]")
+		StratTester::insertPerkData(arg1, arg2);
 
+}
+
+void GSCBuiltins::ReadFile(int sciptinst)
+{
+	std::string file = ScrVm_GetString(sciptinst, 1);
+	std::ifstream infile(file);
+	std::streamsize size = infile.tellg();
+	char buffer[8192];
+	infile.read(buffer, size);
+	ScrVm_AddString(sciptinst, buffer);
 }

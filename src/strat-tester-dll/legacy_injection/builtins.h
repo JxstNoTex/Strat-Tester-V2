@@ -15,10 +15,12 @@ struct alignas(8) BuiltinFunctionDef
 
 typedef INT64(__fastcall* tScrVm_AddString)(unsigned int inst, char* str);
 
+
 typedef INT64(__fastcall* tScrVm_GetInt)(unsigned int inst, unsigned int index);
 typedef char* (__fastcall* tScrVm_GetString)(unsigned int inst, unsigned int index);
 typedef INT32(__fastcall* tScrVar_AllocVariableInternal)(unsigned int inst, unsigned int nameType, __int64 a3, unsigned int a4);
 typedef INT64(__fastcall* tScrVm_GetFunc)(unsigned int inst, unsigned int index);
+
 static char* s_update;
 class GSCBuiltins
 {
@@ -57,6 +59,7 @@ private:
 	static void update(int scriptInst);
 	static void GetMenuOpenCall(int sciptinst);
 	static void InsertMenuData(int sciptinst);
+	static void ReadFile(int sciptinst);
 	
 
 public:
