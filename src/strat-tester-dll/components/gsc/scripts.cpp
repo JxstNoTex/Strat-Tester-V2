@@ -115,8 +115,8 @@ namespace gsc
 					{
 						gsc::ReadScriptDetour detour;
 						detour.FixupName = *reinterpret_cast<uint32_t*>(ptr + gsic_header_size + 4);
-						detour.ReplaceFunction = *reinterpret_cast<uint32_t*>(ptr + gsic_header_size + 4);
-						detour.ReplaceNamespace = *reinterpret_cast<uint32_t*>(ptr + gsic_header_size + 8);
+						detour.ReplaceNamespace = *reinterpret_cast<uint32_t*>(ptr + gsic_header_size + 4);
+						detour.ReplaceFunction = *reinterpret_cast<uint32_t*>(ptr + gsic_header_size + 8);
 						detour.FixupOffset = *reinterpret_cast<uint32_t*>(ptr + gsic_header_size + 12);
 						detour.FixupSize = *reinterpret_cast<uint32_t*>(ptr + gsic_header_size + 16);
 						memcpy_s(detour.ReplaceScriptName, 256, ptr + gsic_header_size + sizeof(detour) - 256, 256);
