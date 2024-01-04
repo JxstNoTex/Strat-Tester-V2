@@ -180,7 +180,7 @@ bool component_loader::premature_hooks()
 	{
 		for (const auto& component_ : get_components())
 		{
-			component_->premature_hooks();
+			component_->Start_frontend_hooks();
 		}
 	}
 	catch (premature_shutdown_trigger&)

@@ -1,24 +1,16 @@
 #include <std_include.hpp>
 
 
-#include "builtins.h"
-#include "Opcodes.h"
-#include "detours.h"
-#include "inject.h"
+
 #include <main.h>
 #include "game/game.hpp"
 #include "havok/hks_api.hpp"
 #include "loader/component_loader.hpp"
+#include "components/arxan.hpp"
 
-injector inject;
 
 int init()
 {
-	//create object reference for injector
-
-	//inject.injectT7();
-
-
 	return 1;
 }
 
@@ -26,18 +18,6 @@ void unload()
 {
 	//destroy console
 	component_loader::pre_destroy();
-
-
-	//unload resource and gsc
-
-	inject.FreeT7();
-
-	ScriptDetours::ResetDetours();
-	BOOL gsiResult = UnlockResource(inject.Hres_GSI);
-	gsiResult = FreeResource(inject.Hres_GSI);
-
-	BOOL gccResult1 = UnlockResource(inject.Hres_GSCC);
-	gccResult1 = FreeResource(inject.Hres_GSCC);
 }
 
 #ifndef MENU_TEST
@@ -48,7 +28,8 @@ extern "C"
 	int __declspec(dllexport) init(lua::lua_State* L)
 	{
 		game::minlog.WriteLine("T7Overchared initiating");
-
+		arxan::InstallExceptionDispatcher();
+		arxan::search_and_patch_integrity_checks();
 		const lua::luaL_Reg T7OverchargedLibrary[] =
 		{
 			{nullptr, nullptr},
@@ -85,9 +66,7 @@ BOOL APIENTRY DllMain(HMODULE hModule,
 	case DLL_PROCESS_ATTACH:
 
 		init();
-		GSCBuiltins::Init();
-		//ScriptDetours::InstallHooks();
-		//Opcodes::Init();
+		__security_init_cookie();
 		DisableThreadLibraryCalls(hModule);
 		atexit(unload);
 		CreateThread(nullptr, 0, MainThread, hModule, 0, nullptr);

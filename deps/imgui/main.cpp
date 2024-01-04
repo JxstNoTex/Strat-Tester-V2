@@ -53,7 +53,7 @@ bool should_ignore_msg(UINT msg)
 	}
 }
 
-StratTester::Menu* m;
+//StratTester::Menu* m;
 void InitImGui()
 {
 	ImGui::CreateContext();
@@ -149,7 +149,7 @@ void draw(IDXGISwapChain* pSwapChain, ID3D11Device* pDevice)
 		GetWindowRect(hDesktop, &desktop);
 		vec2_t res = { desktop.right, desktop.bottom };
 	}
-	m->draw();
+	//m->draw();
 }
 
 

@@ -27,7 +27,7 @@ public:
 	{
 	}
 
-	virtual void premature_hooks()
+	virtual void Start_frontend_hooks()
 	{
 	}
 
