@@ -234,7 +234,7 @@ namespace console
 			//utils::hook::nop(REBASE(0x1422BCDCA), 16);	// Dvar_ForEachName_Match, remove (dvar->flags & 1) != 0, don't need rewrote function
 			utils::hook::nop(REBASE(0x142152220), 13);	// Dvar_ListSingle, remove Dvar_GetFlags call //? updated
 			utils::hook::nop(REBASE(0x1421527D3), 9);	// Dvar_ToggleInternal, remove (dvar->flags & 1) == 0 //? updated
-
+			utils::hook::nop(0x142332C4A_g, 2);			// Print from every thread
 			Com_EventLoop_hook.create(REBASE(0x1420F8A50), &Com_EventLoop); //updated
 			Dvar_CanSetConfigDvar_hook.create(REBASE(0x1422B8890), &Dvar_CanSetConfigDvar); //updated
 			//Dvar_ForEachName_1_hook.create(0x22BD890, &Dvar_ForEachName_Complete);
