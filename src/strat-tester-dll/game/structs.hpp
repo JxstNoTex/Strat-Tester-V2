@@ -2027,7 +2027,12 @@ namespace game
 		cpose_t pose;
 	};
 
-	
+	struct RawFile
+	{
+		const char* name;
+		int len;
+		const char* buffer;
+	};
 
 	struct SPT_Header
 	{
