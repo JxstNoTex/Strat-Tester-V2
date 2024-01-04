@@ -130,6 +130,8 @@ namespace gsc
 			detour::LinkDetours();
 		}
 
+
+
 		class component final : public component_interface
 		{
 			void post_start() override
@@ -142,3 +144,5 @@ namespace gsc
 
 	}
 }
+
+REGISTER_COMPONENT(gsc::funcs::component)
