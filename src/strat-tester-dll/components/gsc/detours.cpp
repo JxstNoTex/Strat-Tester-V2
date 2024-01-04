@@ -209,10 +209,10 @@ namespace gsc
 
 		bool CheckDetour(INT32 inst, INT64* fs_0, INT32 offset)
 		{
-			printf("Com_IsRunningUILevel response: %d", game::Com_IsRunningUILevel());
+			
 			if (game::Com_IsRunningUILevel())
 			{
-				printf("running ui level\n");
+				
 				if (!DetoursReset)
 				{
 					ResetDetours();
