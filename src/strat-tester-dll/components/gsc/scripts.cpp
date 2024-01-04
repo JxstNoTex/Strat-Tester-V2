@@ -114,7 +114,7 @@ namespace gsc
 					for (int i = 0; i < detour_count; i++)
 					{
 						gsc::ReadScriptDetour detour;
-						detour.FixupName = *reinterpret_cast<uint32_t*>(ptr + gsic_header_size + 4);
+						detour.FixupName = *reinterpret_cast<uint32_t*>(ptr + gsic_header_size + 0);
 						detour.ReplaceNamespace = *reinterpret_cast<uint32_t*>(ptr + gsic_header_size + 4);
 						detour.ReplaceFunction = *reinterpret_cast<uint32_t*>(ptr + gsic_header_size + 8);
 						detour.FixupOffset = *reinterpret_cast<uint32_t*>(ptr + gsic_header_size + 12);
